@@ -1,0 +1,4 @@
+- name: Install fontconfig fonts-urw-base35
+  apt:
+    name: [fontconfig, fonts-urw-base35]
+    state: present

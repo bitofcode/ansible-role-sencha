@@ -1,0 +1,41 @@
+---
+# tasks file for linux_sencha_cmd
+
+- name: Create SenchaCmd Install Dir.
+  file:
+    dest: "{{ item }}"
+    state: directory
+    mode: 0777
+  with_list:
+    - "{{ sencha_install_home }}"
+    - "{{ sencha_install_home }}/bins"
+  become: yes  
+
+- name: Create SenchaCmd Install Dir.
+  file:
+    dest: "{{ sencha_install_home }}/bins"
+    state: directory
+    mode: 0777
+  become: yes  
+
+- name: Download SenchaCmd.
+  get_url:
+    url: "{{ sencha_url }}"
+    dest: "{{ sencha_install_home }}/{{ sencha_archive }}"
+    checksum: "{{ sencha_checksum }}"
+  become: yes
+
+- name: Unarchive SenchaCmd.
+  unarchive:
+    src: "{{ sencha_install_home }}/{{ sencha_archive }}"
+    dest: "{{ sencha_install_home }}"
+    remote_src: yes
+    creates: "{{ sencha_install_home }}/{{ sencha_install_bin }}"
+  become: yes
+
+- name: Install SenchaCmd.
+  command:
+    cmd: "{{ sencha_install_home }}/{{ sencha_install_bin }} -q -dir {{ sencha_install_home }}/bins/{{ sencha_version }}"
+    creates: "{{ sencha_install_home }}/sencha/bins/{{ sencha_version }}/plugin.xml"
+  become: yes
+  

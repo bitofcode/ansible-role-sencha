@@ -1,0 +1,4 @@
+- name: Install fontconfig urw-fonts
+  yum:
+    name: [fontconfig, urw-fonts]
+    state: present

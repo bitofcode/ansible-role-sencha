@@ -1,0 +1,21 @@
+---
+# tasks file for linux_sencha_cmd
+
+- name: "install system packages"
+  include_tasks: "setup-{{ ansible_os_family }}.yml"
+
+- name: Check whether SenchaCmd is installed
+  shell: "{{ sencha_install_home }}/bins/sencha which"
+  register: sencha_installed
+  ignore_errors: yes 
+
+- name: "install SenchaCmd"
+  include_tasks: "install-sencha.yml"
+  when: sencha_installed.rc != 0
+
+- name: Set SenchaCmd System Variables
+  template:
+    src: templates/sencha-environment-vars.j2
+    dest: /etc/profile.d/boc_sencha.sh
+    mode: u=rwx,g=rx,o=rx
+  become: yes

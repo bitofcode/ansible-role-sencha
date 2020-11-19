@@ -1,0 +1,9 @@
+---
+# vars file for linux_sencha_cmd
+sencha_version: "6.7.0.63"
+sencha_install_bin: SenchaCmd-{{ sencha_version }}-linux-amd64.sh
+sencha_archive: "{{ sencha_install_bin }}.zip"
+sencha_url: "http://cdn.sencha.com/cmd/{{ sencha_version }}/no-jre/{{ sencha_archive }}"
+sencha_checksum: sha512:1fc43ae016b0d38be15f49fd02b2f14d8e605f3ff1c09fb569f991eb665b4ccaaf90132cf7df0751d0c72fc04b10eda8b238d6a6d7002692640653827305cc90
+sencha_install_home: /usr/local/opt/sencha/sencha
+sencha_home: "{{ sencha_install_home }}/sencha"
